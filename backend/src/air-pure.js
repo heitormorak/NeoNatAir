@@ -59,7 +59,7 @@ export async function GetUltimaLeitura(req,res){
         headers:{
             accept : "application/json"
         },
-        body: JSON.stringify(req.body)
+        //body: JSON.stringify(req.body)
     })
     res.status(airPureResponse.status)
     res.json(await airPureResponse.json())
