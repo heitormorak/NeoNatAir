@@ -1,45 +1,63 @@
 import fetch from "node-fetch";
 
-// const server = 'https://jsonplaceholder.typicode.com'
-// function GetTemp(){
-//     fetch('https://jsonplaceholder.typicode.com/todos/').then((response) => {
-//         //após receber retorno da promise (response)
-//         console.log(response)
-//         response.json()
-//     })
-// }
-// GetTemp();
-
 const server = 'https://backend-api-airpure.vercel.app'
 
+const id = 1
+
 //primeiro precisa fazer login no dispositivo
-function LoginAirPure(){
-    fetch(`${server}/api/login`)
-        .then((response) => {
-        console.log(response.json())        
+export async function LoginAirPure(req,res){
+    console.log(JSON.stringify(req.body))
+    
+    const airPureResponse = await fetch(`${server}/api/login`,{
+        method: "POST",
+        headers:{
+            accept : "application/json",
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(req.body)
     })
+    
+
+    res.status(airPureResponse.status)
+    //console.log("status:" , airPureResponse.status)
+    res.json(await airPureResponse.json())
 }
 
 //obtendo infos do ambiente
-function GetInfoAmbientes(){
-    fetch(`${server}/api/ambientes/{id}`)
-        .then((response) => {
-        console.log(response.json())        
+export async function GetInfoAmbientes(req,res){
+    const airPureResponse = await fetch(`${server}/api/ambientes/${id}`, {
+        method: "GET",
+        headers:{
+            accept : "application/json"
+        },
+        body: JSON.stringify(req.body)
     })
+    res.status(airPureResponse.status)
+    res.json(await airPureResponse.json())
 }
 
 //consulta leituras da data x
-function GetLeiturasDia(){
-    fetch(`${server}/api/mediaDia/{parametro}/{idAmbiente}/{data}`)
-        .then((response) => {
-        console.log(response.json())        
+export async function GetLeiturasDia(req,res){
+    const airPureResponse = await fetch(`${server}/api/mediaDia/${parametro}/${idAmbiente}/{data}`, {
+        method: "GET",
+        headers:{
+            accept : "application/json"
+        },
+        body: JSON.stringify(req.body)
     })
+    res.status(airPureResponse.status)
+    res.json(await airPureResponse.json())
 }
 
-//consulta leituras da data x
-function GetLeiturasDia(){
-    fetch(`${server}/api/mediaDia/{parametro}/{idAmbiente}/{data}`)
-        .then((response) => {
-        console.log(response.json())        
+//consulta última leitura
+export async function GetUltimaLeitura(req,res){
+    const airPureResponse = await fetch(`${server}/api/ultimoValor/${idAmbiente}`, {
+        method: "GET",
+        headers:{
+            accept : "application/json"
+        },
+        body: JSON.stringify(req.body)
     })
+    res.status(airPureResponse.status)
+    res.json(await airPureResponse.json())
 }
