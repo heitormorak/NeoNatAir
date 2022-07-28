@@ -56,8 +56,8 @@ async function LeiturasDia(){
   
   console.log(response.status, response.statusText)
   console.log(response.headers)
-  const responseBody = await response.json()
-  console.log(responseBody)
+  //const responseBody = await response.json()
+  //console.log(responseBody)
 }
 
 //consultar última leitura
