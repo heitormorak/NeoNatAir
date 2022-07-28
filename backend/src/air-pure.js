@@ -5,7 +5,6 @@ import fetch from "node-fetch";
 //     fetch('https://jsonplaceholder.typicode.com/todos/').then((response) => {
 //         //após receber retorno da promise (response)
 //         console.log(response)
-
 //         response.json()
 //     })
 // }
@@ -15,7 +14,7 @@ const server = 'https://airpurelanding.vercel.app/'
 
 //primeiro precisa fazer login no dispositivo
 function LoginAirPure(){
-    fetch({server} /aip/login)
+    fetch(`${server}/api/login`)
         .then((response) => {
         console.log(response.json())        
     })
@@ -23,7 +22,7 @@ function LoginAirPure(){
 
 //obtendo infos do ambiente
 function GetInfoAmbientes(){
-    fetch({server} /api/ambientes/{id})
+    fetch(`${server}/api/ambientes/{id}`)
         .then((response) => {
         console.log(response.json())        
     })
@@ -31,7 +30,7 @@ function GetInfoAmbientes(){
 
 //consulta leituras da data x
 function GetLeiturasDia(){
-    fetch({server} /api/mediaDia/{parametro}/{idAmbiente}/{data})
+    fetch(`${server}/api/mediaDia/{parametro}/{idAmbiente}/{data}`)
         .then((response) => {
         console.log(response.json())        
     })
@@ -39,7 +38,7 @@ function GetLeiturasDia(){
 
 //consulta leituras da data x
 function GetLeiturasDia(){
-    fetch({server} /api/mediaDia/{parametro}/{idAmbiente}/{data})
+    fetch(`${server}/api/mediaDia/{parametro}/{idAmbiente}/{data}`)
         .then((response) => {
         console.log(response.json())        
     })
