@@ -10,7 +10,7 @@ import fetch from "node-fetch";
 // }
 // GetTemp();
 
-const server = 'https://airpurelanding.vercel.app/'
+const server = 'https://backend-api-airpure.vercel.app'
 
 //primeiro precisa fazer login no dispositivo
 function LoginAirPure(){
