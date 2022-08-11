@@ -4,6 +4,9 @@ import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura  } fro
 
 import { GetAmostragens } from './routes/amostragem.js'
 import { conexao } from './models/db.js'
+import { GetAirPures } from './routes/airpure.js'
+import { GetLeitos } from './routes/leito.js'
+import { GetUsuarios, GetAdministradores, GetEquipesTecnicas } from './routes/usuario.js'
 
 //iniciando banco
 await conexao.sync();
@@ -22,6 +25,11 @@ app.get('/ultimaLeitura', GetUltimaLeitura)
 
 //rotas NeoNatAir
 app.get('/api/amostragens', GetAmostragens);
+app.get('/api/airpures', GetAirPures);
+app.get('/api/leitos', GetLeitos);
+app.get('/api/usuarios', GetUsuarios);
+app.get('/api/administradores', GetAdministradores);
+app.get('/api/equipestecnicas', GetEquipesTecnicas);
 
 
 app.listen(port,()=>{
