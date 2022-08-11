@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-const server = 'https://backend-api-airpure.vercel.app'
+const serverURL = 'https://backend-api-airpure.vercel.app'
 
 const id = 1
 const parametro = 472
@@ -12,7 +12,7 @@ let TOKEN = "dk077qegqvn4ovcbig58w5"
 //primeiro precisa fazer login no dispositivo
 export async function LoginAirPure(req,res){
     
-    const airPureResponse = await fetch(`${server}/api/login`,{
+    const airPureResponse = await fetch(`${serverURL}/api/login`,{
         method: "POST",
         headers:{
             accept : "application/json",
@@ -32,9 +32,9 @@ export async function LoginAirPure(req,res){
 //obtendo infos do ambiente
 export async function GetInfoAmbientes(req,res){
 
-    let id = req.params.id
+    let id = req.params.id;
 
-    const airPureResponse = await fetch(`${server}/api/ambientes/id=${id}`, {
+    const airPureResponse = await fetch(`${serverURL}/api/ambientes/${id}`, {
         method: "GET",
         headers:{
             'sessiontoken': TOKEN, //ou `Bearer ${TOKEN}`
@@ -50,7 +50,7 @@ export async function GetInfoAmbientes(req,res){
 
 //consulta leituras da data x
 export async function GetLeiturasDia(req,res){
-    const airPureResponse = await fetch(`${server}/api/mediaDia/${parametro}/${idAmbiente}/${data}`, {
+    const airPureResponse = await fetch(`${serverURL}/api/mediaDia/${parametro}/${idAmbiente}/${data}`, {
         method: "GET",
         headers:{
             accept : "application/json",
@@ -62,7 +62,7 @@ export async function GetLeiturasDia(req,res){
 
 //consulta última leitura
 export async function GetUltimaLeitura(req,res){
-    const airPureResponse = await fetch(`${server}/api/ultimoValor/${idAmbiente}`, {
+    const airPureResponse = await fetch(`${serverURL}/api/ultimoValor/${idAmbiente}`, {
         method: "GET",
         headers:{
             accept : "application/json",

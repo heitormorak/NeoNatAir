@@ -30,9 +30,9 @@ const server = 'http://localhost:8080'
 //obter infos do ambiente
 async function infoAmbientes(){
 
-  let id = '1'
+  let id = '15'
 
-  const response = await fetch(`${server}/infoAmbientes/id=${id}`,{
+  const response = await fetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`,{
     method: "GET",
     headers: {
       //futuramente inserir token
