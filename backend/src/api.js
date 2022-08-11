@@ -9,7 +9,7 @@ app.use(cors())
 
 //rotas para air-pure.js 
 app.post('/loginAirPure', LoginAirPure)
-app.get('/infoAmbientes', GetInfoAmbientes)
+app.get('/infoAmbientes/:id', GetInfoAmbientes)
 app.get('/leiturasDia', GetLeiturasDia)
 app.get('/ultimaLeitura', GetUltimaLeitura)
 

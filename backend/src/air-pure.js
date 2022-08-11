@@ -7,9 +7,10 @@ const parametro = 472
 const idAmbiente = 1
 const data = "2022-07-27"
 
+let TOKEN = "dk077qegqvn4ovcbig58w5"
+
 //primeiro precisa fazer login no dispositivo
 export async function LoginAirPure(req,res){
-    //console.log(JSON.stringify(req.body))
     
     const airPureResponse = await fetch(`${server}/api/login`,{
         method: "POST",
@@ -20,29 +21,31 @@ export async function LoginAirPure(req,res){
         body: JSON.stringify(req.body)
     })
     
-
     res.status(airPureResponse.status)
-    res.json(await airPureResponse.json())
 
-    teste = JSON.stringify(res)
-    console.log("res:" , teste)
-
+    let body = await airPureResponse.json()
+    res.json(body)
+    TOKEN = body.session_token
+    console.log(TOKEN)
 }
-
 
 //obtendo infos do ambiente
 export async function GetInfoAmbientes(req,res){
-    const airPureResponse = await fetch(`${server}/api/ambientes/${id}`, {
+
+    let id = req.params.id
+
+    const airPureResponse = await fetch(`${server}/api/ambientes/id=${id}`, {
         method: "GET",
         headers:{
+            'sessiontoken': TOKEN, //ou `Bearer ${TOKEN}`
             accept : "application/json", 
             "content-type": "application/json"
         },
-        body: JSON.stringify(req.body)
-
+        
     })
     res.status(airPureResponse.status)
-    res.json(await airPureResponse.json())
+    let body = await airPureResponse.json()
+    res.json(body)
 }
 
 //consulta leituras da data x
