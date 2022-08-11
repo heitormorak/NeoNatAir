@@ -3,6 +3,7 @@ import { React } from 'react'
 
 // const server = 'https://backend-api-airpure.vercel.app'
 const server = 'http://localhost:8080'
+const token = "vfbf3d7gpts6t46r87nyp6"
 
 //fazer login no dispositivo
     async function loginAPI(){
@@ -25,17 +26,25 @@ const server = 'http://localhost:8080'
     console.log(response.status, response.statusText)
     console.log(response.headers)
     const responseBody = await response.json()
-    console.log(responseBody)
+    console.log("TOKEN resposta:", responseBody.session_token)
 }
 
 //obter infos do ambiente
 async function infoAmbientes(){
 
-const response = await fetch(`${server}/infoAmbientes`,{
-  method: "GET",
-  headers: {
-    accept: "application/json"
-  },
+  const body = {
+    //senha: teste
+    id: "1", 
+    sessiontoken: token
+  }
+
+  const response = await fetch(`${server}/infoAmbientes`,{
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(body)
 })
 
 console.log(response.status, response.statusText)

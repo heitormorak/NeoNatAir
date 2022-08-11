@@ -5,10 +5,11 @@ const server = 'https://backend-api-airpure.vercel.app'
 const id = 1
 const parametro = 472
 const idAmbiente = 1
-const  data = "2022-07-27"
+const data = "2022-07-27"
+
 //primeiro precisa fazer login no dispositivo
 export async function LoginAirPure(req,res){
-    console.log(JSON.stringify(req.body))
+    //console.log(JSON.stringify(req.body))
     
     const airPureResponse = await fetch(`${server}/api/login`,{
         method: "POST",
@@ -21,18 +22,24 @@ export async function LoginAirPure(req,res){
     
 
     res.status(airPureResponse.status)
-    //console.log("status:" , airPureResponse.status)
     res.json(await airPureResponse.json())
+
+    teste = JSON.stringify(res)
+    console.log("res:" , teste)
+
 }
+
 
 //obtendo infos do ambiente
 export async function GetInfoAmbientes(req,res){
     const airPureResponse = await fetch(`${server}/api/ambientes/${id}`, {
         method: "GET",
         headers:{
-            accept : "application/json"
+            accept : "application/json", 
+            "content-type": "application/json"
         },
-      //  body: JSON.stringify(req.body)
+        body: JSON.stringify(req.body)
+
     })
     res.status(airPureResponse.status)
     res.json(await airPureResponse.json())
@@ -44,9 +51,7 @@ export async function GetLeiturasDia(req,res){
         method: "GET",
         headers:{
             accept : "application/json",
-            //sessiontoken: "zwn66kbaz3gwyh5krnwap"
         },
-        //body: JSON.stringify(req.body)
     })
     res.status(airPureResponse.status)
     res.json(await airPureResponse.json())
@@ -57,9 +62,8 @@ export async function GetUltimaLeitura(req,res){
     const airPureResponse = await fetch(`${server}/api/ultimoValor/${idAmbiente}`, {
         method: "GET",
         headers:{
-            accept : "application/json"
+            accept : "application/json",
         },
-        //body: JSON.stringify(req.body)
     })
     res.status(airPureResponse.status)
     res.json(await airPureResponse.json())
