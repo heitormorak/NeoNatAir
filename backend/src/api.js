@@ -3,6 +3,10 @@ import cors from 'cors'
 import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura  } from './air-pure.js'
 
 import { GetAmostragens } from './routes/amostragem.js'
+import { conexao } from './models/db.js'
+
+//iniciando banco
+await conexao.sync();
 
 const app = express()
 const port = 8080;
