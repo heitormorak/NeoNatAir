@@ -2,7 +2,6 @@ import fetch from "node-fetch";
 
 const serverURL = 'https://backend-api-airpure.vercel.app'
 
-const id = 1
 const parametro = 472
 const idAmbiente = 1
 const data = "2022-07-27"

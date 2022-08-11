@@ -62,7 +62,7 @@ async function infoAmbientes(){
 //consultar leituras da data x
 async function LeiturasDia(){
 
-  const response = await fetch(`${server}/leiturasDia`,{
+  const response = await fetch(`${server}/leiturasDia/`,{
     method: "GET",
     headers: {
       accept: "application/json"
@@ -92,8 +92,14 @@ async function UltimaLeitura(){
 
 function App() {
 
-  const [infoAmbientes, fetchInfoAmbientes] = useFetch(`${server}/infoAmbientes/${encodeURIComponent("1")}`)
-  
+  const id = "1"
+  const parametro = 472
+  const idAmbiente = "1"
+  const data = "2022-08-10"
+
+  const [infoAmbientes, fetchInfoAmbientes] = useFetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`)
+  const [leiturasDias, fetchLeiturasDias] = useFetch(`${server}leiturasDia/${encodeURIComponent(parametro)}/${encodeURIComponent(idAmbiente)}/${encodeURIComponent(data)}}`)
+
   const loginBody = JSON.stringify({
     //senha: teste
     usr: "heitor1", 
@@ -105,28 +111,35 @@ function App() {
   })
 
   return (
-   <>
-   
+   <>   
     <button onClick={() => fetchLogin()}> Teste Login </button>  
     <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>
-    <button onClick={() => LeiturasDia()}>Teste Leituras Dia</button>
+    <button onClick={() => fetchLeiturasDias()}>Teste Leituras Dia</button>
     <button onClick={() => UltimaLeitura()}>Teste Ultima Leitura</button>
     {/* {(login.isFetching || login.didFetch) && (
       <pre style={{textAlign:"left"}}>{JSON.stringify({login}, null, 2)}</pre>
     )} */}
     {/* <pre style={{textAlign:"left"}}>{JSON.stringify({infoAmbientes}, null, 2)}</pre> */}
-    {infoAmbientes.willFetch && <p>Fazendo nada em relação a info ambientes...</p>}
+    {/*infoAmbientes.willFetch && <p>Fazendo nada em relação a info ambientes...</p> */}
     {infoAmbientes.isFetching && <p>Baixando info ambientes...</p>}
     {infoAmbientes.didSucceed && (
       infoAmbientes.data.map(infoAmbiente => (
         <InfoAmbiente {...infoAmbiente} />
       ))
     )}
+
+    {leiturasDias.isFetching && <p>Baixando leituras dia...</p>}
+    {leiturasDias.didSucceed && (
+      leiturasDias.data.map(LeiturasDia => (
+        <LeiturasDia {...LeiturasDia} />
+      ))
+    )}
+
+
   </>
   )
 }
 
-export default App
 
 function InfoAmbiente({ id, sala, predio, local, dimensao, capmaxima, id_parametros }) {
   return (
@@ -137,3 +150,16 @@ function InfoAmbiente({ id, sala, predio, local, dimensao, capmaxima, id_paramet
     </>
   )
 }
+
+function LeiturasDia({ id, sala, predio, local, dimensao, capmaxima, id_parametros }) {
+  return (
+    <>
+    <h2>Sala: {sala}</h2>
+    <h3>Prédio: {predio}</h3>
+    <h3>Local: {local}</h3>
+    </>
+  )
+}
+
+
+export default App
