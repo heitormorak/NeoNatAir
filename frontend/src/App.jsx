@@ -6,72 +6,72 @@ import useFetch from "./useFetch.js"
 const server = 'http://localhost:8080'
 //const token = "vfbf3d7gpts6t46r87nyp6"
 
-//fazer login no dispositivo
-    async function loginAPI(){
+// //fazer login no dispositivo
+//     async function loginAPI(){
 
-      const body = {
-        //senha: teste
-        usr: "heitor1", 
-        pass: "698dc19d489c4e4db73e28a713eab07b"
-      }
+//       const body = {
+//         //senha: teste
+//         usr: "heitor1", 
+//         pass: "698dc19d489c4e4db73e28a713eab07b"
+//       }
 
-      const response = await fetch(`${server}/loginAirPure`,{
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(body)
-      })
+//       const response = await fetch(`${server}/loginAirPure`,{
+//         method: "POST",
+//         headers: {
+//           accept: "application/json",
+//           "content-type": "application/json"
+//         },
+//         body: JSON.stringify(body)
+//       })
 
-    console.log(response.status, response.statusText)
-    console.log(response.headers)
-}
+//     console.log(response.status, response.statusText)
+//     console.log(response.headers)
+// }
 
-//obter infos do ambiente
-async function infoAmbientes(){
+// //obter infos do ambiente
+// async function infoAmbientes(){
 
-  //id do usuario airpure, que é retornado no login
-  let id = "1"
+//   //id do usuario airpure, que é retornado no login
+//   let id = "1"
 
-  const response = await fetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`,{
-    method: "GET",
-    headers: {
-      //futuramente inserir token
-      accept: "application/json",
-      "content-type": "application/json"
-    },
-  })
+//   const response = await fetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`,{
+//     method: "GET",
+//     headers: {
+//       //futuramente inserir token
+//       accept: "application/json",
+//       "content-type": "application/json"
+//     },
+//   })
 
-  console.log(response.status, response.statusText)
-  console.log(response.headers)
-  const responseBody = await response.json()
-  console.log(responseBody)
+//   console.log(response.status, response.statusText)
+//   console.log(response.headers)
+//   const responseBody = await response.json()
+//   console.log(responseBody)
 
-  if (!response.ok)
-  {
-    const error = new Error(`Request failed with code ${response.status}`)
-    error.response = response
-    error.responseBody = responseBody
-    throw error
-  }
+//   if (!response.ok)
+//   {
+//     const error = new Error(`Request failed with code ${response.status}`)
+//     error.response = response
+//     error.responseBody = responseBody
+//     throw error
+//   }
 
-  return responseBody;
-}
+//   return responseBody;
+// }
 
-//consultar leituras da data x
-async function LeiturasDia(){
+// //consultar leituras da data x
+// async function LeiturasDia(){
 
-  const response = await fetch(`${server}/leiturasDia/`,{
-    method: "GET",
-    headers: {
-      accept: "application/json"
-    },
-  })
+//   const response = await fetch(`${server}/leiturasDia/`,{
+//     method: "GET",
+//     headers: {
+//       accept: "application/json"
+//     },
+//   })
   
-  console.log(response.status, response.statusText)
-  console.log(response.headers)
-}
+//   console.log(response.status, response.statusText)
+//   console.log(response.headers)
+// }
 
 //consultar última leitura
 async function UltimaLeitura(){
@@ -93,12 +93,12 @@ async function UltimaLeitura(){
 function App() {
 
   const id = "1"
-  const parametro = 472
+  const parametro = "472"
   const idAmbiente = "1"
-  const data = "2022-08-10"
+  const data = "10-08-2022"
 
   const [infoAmbientes, fetchInfoAmbientes] = useFetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`)
-  const [leiturasDias, fetchLeiturasDias] = useFetch(`${server}leiturasDia/${encodeURIComponent(parametro)}/${encodeURIComponent(idAmbiente)}/${encodeURIComponent(data)}}`)
+  const [leiturasDias, fetchLeiturasDias] = useFetch(`${server}/leiturasDias/${encodeURIComponent(parametro)}/${encodeURIComponent(idAmbiente)}/${encodeURIComponent(data)}`)
 
   const loginBody = JSON.stringify({
     //senha: teste

@@ -2,9 +2,9 @@ import fetch from "node-fetch";
 
 const serverURL = 'https://backend-api-airpure.vercel.app'
 
-const parametro = 472
-const idAmbiente = 1
-const data = "2022-07-27"
+// const parametro = 472
+// const idAmbiente = 1
+// const data = "2022-07-27"
 
 let TOKEN = null
 
@@ -53,16 +53,28 @@ export async function GetInfoAmbientes(req,res){
     res.json(body)
 }
 
-//consulta leituras da data x
+//consulta leituras da data x - RETORNA VAZIA
 export async function GetLeiturasDia(req,res){
+
+    let parametro = req.params.parametro;
+    let idAmbiente = req.params.idAmbiente;
+    let data = req.params.data;
+
+    console.log("aaaaa:", parametro, idAmbiente, data);
+
+
     const airPureResponse = await fetch(`${serverURL}/api/mediaDia/${parametro}/${idAmbiente}/${data}`, {
         method: "GET",
         headers:{
+            'sessiontoken': TOKEN, 
             accept : "application/json",
+            "content-type": "application/json"
         },
     })
     res.status(airPureResponse.status)
-    res.json(await airPureResponse.json())
+    let body = await airPureResponse.json()
+    res.json(body)
+   // res.json(await airPureResponse.json())
 }
 
 //consulta última leitura
