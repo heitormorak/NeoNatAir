@@ -1,5 +1,6 @@
 import './App.css'
 import { React } from 'react'
+import useFetch from "./useFetch.js"
 
 // const server = 'https://backend-api-airpure.vercel.app'
 const server = 'http://localhost:8080'
@@ -30,7 +31,8 @@ const server = 'http://localhost:8080'
 //obter infos do ambiente
 async function infoAmbientes(){
 
-  let id = '15'
+  //id do usuario airpure, que é retornado no login
+  let id = "1"
 
   const response = await fetch(`${server}/infoAmbientes/${encodeURIComponent(id)}`,{
     method: "GET",
@@ -39,12 +41,22 @@ async function infoAmbientes(){
       accept: "application/json",
       "content-type": "application/json"
     },
-})
+  })
 
-console.log(response.status, response.statusText)
-console.log(response.headers)
-const responseBody = await response.json()
-console.log(responseBody)
+  console.log(response.status, response.statusText)
+  console.log(response.headers)
+  const responseBody = await response.json()
+  console.log(responseBody)
+
+  if (!response.ok)
+  {
+    const error = new Error(`Request failed with code ${response.status}`)
+    error.response = response
+    error.responseBody = responseBody
+    throw error
+  }
+
+  return responseBody;
 }
 
 //consultar leituras da data x
@@ -80,17 +92,48 @@ async function UltimaLeitura(){
 
 function App() {
 
+  const [infoAmbientes, fetchInfoAmbientes] = useFetch(`${server}/infoAmbientes/${encodeURIComponent("1")}`)
+  
+  const loginBody = JSON.stringify({
+    //senha: teste
+    usr: "heitor1", 
+    pass: "698dc19d489c4e4db73e28a713eab07b"
+  })
+  const [login, fetchLogin] = useFetch(`${server}/loginAirPure`, {
+    method : "POST",
+    body : loginBody
+  })
+
   return (
    <>
    
-    <button onClick={() => loginAPI()}> Teste Login </button>  
-    <button onClick={() => infoAmbientes()}>Teste Info Ambiente</button>
+    <button onClick={() => fetchLogin()}> Teste Login </button>  
+    <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>
     <button onClick={() => LeiturasDia()}>Teste Leituras Dia</button>
     <button onClick={() => UltimaLeitura()}>Teste Ultima Leitura</button>
-    
+    {/* {(login.isFetching || login.didFetch) && (
+      <pre style={{textAlign:"left"}}>{JSON.stringify({login}, null, 2)}</pre>
+    )} */}
+    {/* <pre style={{textAlign:"left"}}>{JSON.stringify({infoAmbientes}, null, 2)}</pre> */}
+    {infoAmbientes.willFetch && <p>Fazendo nada em relação a info ambientes...</p>}
+    {infoAmbientes.isFetching && <p>Baixando info ambientes...</p>}
+    {infoAmbientes.didSucceed && (
+      infoAmbientes.data.map(infoAmbiente => (
+        <InfoAmbiente {...infoAmbiente} />
+      ))
+    )}
   </>
   )
 }
 
 export default App
 
+function InfoAmbiente({ id, sala, predio, local, dimensao, capmaxima, id_parametros }) {
+  return (
+    <>
+    <h2>Sala: {sala}</h2>
+    <h3>Prédio: {predio}</h3>
+    <h3>Local: {local}</h3>
+    </>
+  )
+}

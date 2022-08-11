@@ -7,7 +7,7 @@ const parametro = 472
 const idAmbiente = 1
 const data = "2022-07-27"
 
-let TOKEN = "dk077qegqvn4ovcbig58w5"
+let TOKEN = null
 
 //primeiro precisa fazer login no dispositivo
 export async function LoginAirPure(req,res){
@@ -34,7 +34,7 @@ export async function GetInfoAmbientes(req,res){
 
     let id = req.params.id;
 
-    const airPureResponse = await fetch(`${serverURL}/api/ambientes/${id}`, {
+    const airPureResponse = await fetch(`${serverURL}/api/ambiente/${id}`, {
         method: "GET",
         headers:{
             'sessiontoken': TOKEN, //ou `Bearer ${TOKEN}`
@@ -44,6 +44,12 @@ export async function GetInfoAmbientes(req,res){
         
     })
     res.status(airPureResponse.status)
+    
+    // Alternative way of relaying air pure response:
+    // res.setHeader("content-type", "application/json")
+    // res.end(await airPureResponse.text())
+    // BUT, you can't peek into the response body.
+    
     let body = await airPureResponse.json()
     res.json(body)
 }
