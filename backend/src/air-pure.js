@@ -2,10 +2,6 @@ import fetch from "node-fetch";
 
 const serverURL = 'https://backend-api-airpure.vercel.app'
 
-// const parametro = 472
-// const idAmbiente = 1
-// const data = "2022-07-27"
-
 let TOKEN = null
 
 //primeiro precisa fazer login no dispositivo
@@ -33,6 +29,8 @@ export async function GetInfoAmbientes(req,res){
 
     let id = req.params.id;
 
+    console.log(`${serverURL}/api/ambiente/${id}`);
+
     const airPureResponse = await fetch(`${serverURL}/api/ambiente/${id}`, {
         method: "GET",
         headers:{
@@ -53,7 +51,7 @@ export async function GetInfoAmbientes(req,res){
     res.json(body)
 }
 
-//consulta leituras da data x - RETORNA VAZIA
+//consulta leituras da data x 
 export async function GetLeiturasDia(req,res){
 
     let parametro = req.params.parametro;
@@ -79,9 +77,32 @@ export async function GetLeiturasDia(req,res){
 
 //consulta última leitura
 export async function GetUltimaLeitura(req,res){
+
+    let idAmbiente = req.params.idAmbiente;
+
     const airPureResponse = await fetch(`${serverURL}/api/ultimoValor/${idAmbiente}`, {
         method: "GET",
         headers:{
+            'sessiontoken': TOKEN, 
+            accept : "application/json",
+        },
+    })
+    res.status(airPureResponse.status)
+    res.json(await airPureResponse.json())
+}
+
+
+//consulta última leitura todos os ambientes
+export async function GetUltimoAmbientes(req,res){
+
+    let id = req.params.id;
+
+    console.log(`${serverURL}/api/ambientes/${id}`);
+
+    const airPureResponse = await fetch(`${serverURL}/api/ambientes/${id}`, {
+        method: "GET",
+        headers:{
+            'sessiontoken': TOKEN, 
             accept : "application/json",
         },
     })
