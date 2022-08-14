@@ -2,7 +2,17 @@ import express from 'express'
 import cors from 'cors'
 import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura, GetUltimoAmbientes  } from './air-pure.js'
 
+import { GetAmostragens } from './routes/amostragem.js'
+import { conexao } from './models/db.js'
+import { GetAirPures } from './routes/airpure.js'
+import { GetLeitos } from './routes/leito.js'
+import { GetUsuarios, GetAdministradores, GetEquipesTecnicas } from './routes/usuario.js'
+
+//iniciando banco
+await conexao.sync();
+
 const app = express()
+const port = 8080;
 
 app.use(express.json())
 app.use(cors())
@@ -16,7 +26,15 @@ app.get('/ultimoAmbientes/:id', GetUltimoAmbientes)
 
  
 
+//rotas NeoNatAir
+app.get('/api/amostragens', GetAmostragens);
+app.get('/api/airpures', GetAirPures);
+app.get('/api/leitos', GetLeitos);
+app.get('/api/usuarios', GetUsuarios);
+app.get('/api/administradores', GetAdministradores);
+app.get('/api/equipestecnicas', GetEquipesTecnicas);
 
-app.listen(8080,()=>{
-    console.log("listen")
+
+app.listen(port,()=>{
+    console.log(`Server is running in the port: ${port}`)
 })
