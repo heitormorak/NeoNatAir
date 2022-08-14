@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura  } from './air-pure.js'
+import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura, GetUltimoAmbientes  } from './air-pure.js'
 
 import { GetAmostragens } from './routes/amostragem.js'
 import { conexao } from './models/db.js'
@@ -19,9 +19,12 @@ app.use(cors())
 
 //rotas para air-pure.js 
 app.post('/loginAirPure', LoginAirPure)
-app.get('/infoAmbientes', GetInfoAmbientes)
-app.get('/leiturasDia', GetLeiturasDia)
-app.get('/ultimaLeitura', GetUltimaLeitura)
+app.get('/infoAmbientes/:id', GetInfoAmbientes)
+app.get('/leiturasDia/:parametro/:idAmbiente/:data', GetLeiturasDia)
+app.get('/ultimaLeitura/:idAmbiente', GetUltimaLeitura)
+app.get('/ultimoAmbientes/:id', GetUltimoAmbientes)
+
+ 
 
 //rotas NeoNatAir
 app.get('/api/amostragens', GetAmostragens);
