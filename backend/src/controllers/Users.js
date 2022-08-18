@@ -13,6 +13,24 @@ export async function GetUsers (req, res) {
     }
 }
 
+
+export async function Register (req,res) {
+    const { name, email, password, confPassword } = req.body;
+    if(password !== confPassword) return res.status(400).json({msg: "Password and Confirm Password do not match"});
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
+    try {
+        await Users.create({
+            name: name,
+            email: email,
+            password: hashPassword
+        });
+        res.json({msg: "Registration Successful"});
+    } catch (error){
+        console.log(error);
+    }
+}
+
 export async function Login (req, res) {
     try{
         const user = await Usuario.findAll({
