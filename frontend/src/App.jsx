@@ -2,24 +2,23 @@
 import { React } from 'react'
 import useFetch from "./useFetch.js"
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-//import Dashboard from "./components/Dashboard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
+import Register from "./components/Register";
+
  
 function App() {
-  return (
+  return (<>
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Login/>
-        </Route>
-        <Route path="/login">
-          <Login/>
-        </Route>        
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Login/>}/>  
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/register" element={<Register/>}/>        
+      </Routes>
     </BrowserRouter>
-  );
+    </>);
 }
  
 export default App;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
  
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
-    const history = useHistory();
+    const history = useNavigate();
  
     const Auth = async (e) => {
         e.preventDefault();
@@ -24,11 +24,11 @@ const Login = () => {
     }
  
     return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
+        <section style={{alignItems: 'center'}} className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
-                        <div className="column is-4-desktop">
+                        <div className="column">
                             <form onSubmit={Auth} className="box">
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
