@@ -39,7 +39,7 @@ app.get('/api/usuarios', GetUsers);
 // app.get('/api/equipestecnicas', GetEquipesTecnicas);
 
 //rotas NatAir
-app.use(cors({ credentials: true, origin:'https://localhost:3000'}));
+app.use(cors({ credentials: true, origin:'https://localhost:5173'}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);
