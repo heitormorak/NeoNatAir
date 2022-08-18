@@ -1,12 +1,16 @@
 import express from 'express'
 import cors from 'cors'
 import { LoginAirPure, GetInfoAmbientes, GetLeiturasDia, GetUltimaLeitura, GetUltimoAmbientes  } from './air-pure.js'
-
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import router from "./routes/index.js";
 import { GetAmostragens } from './routes/amostragem.js'
-import { conexao } from './models/db.js'
+import { conexao } from './config/db.js'
 import { GetAirPures } from './routes/airpure.js'
 import { GetLeitos } from './routes/leito.js'
-import { GetUsuarios, GetAdministradores, GetEquipesTecnicas } from './routes/usuario.js'
+import { GetUsers } from './routes/usuario.js'
+
+dotenv.config();
 
 //iniciando banco
 await conexao.sync();
@@ -30,10 +34,15 @@ app.get('/ultimoAmbientes/:id', GetUltimoAmbientes)
 app.get('/api/amostragens', GetAmostragens);
 app.get('/api/airpures', GetAirPures);
 app.get('/api/leitos', GetLeitos);
-app.get('/api/usuarios', GetUsuarios);
-app.get('/api/administradores', GetAdministradores);
-app.get('/api/equipestecnicas', GetEquipesTecnicas);
+app.get('/api/usuarios', GetUsers);
+// app.get('/api/administradores', GetAdministradores);
+// app.get('/api/equipestecnicas', GetEquipesTecnicas);
 
+//rotas NatAir
+app.use(cors({ credentials: true, origin:'https://localhost:3000'}));
+app.use(cookieParser());
+app.use(express.json());
+app.use(router);
 
 app.listen(port,()=>{
     console.log(`Server is running in the port: ${port}`)
