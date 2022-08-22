@@ -13,7 +13,7 @@ const Register = () => {
     const Register = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/users', {
+            await axios.post('http://localhost:8080/users', {
                 name: name,
                 email: email,
                 password: password,
@@ -28,11 +28,11 @@ const Register = () => {
     }
  
     return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
+        <section className="section is-centered">
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
-                        <div className="column is-4-desktop">
+                        <div className="column">
                             <form onSubmit={Register} className="box">
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">

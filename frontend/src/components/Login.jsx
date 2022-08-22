@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
- 
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,9 +23,9 @@ const Login = () => {
         }
     }
  
-    return (
-        <section style={{alignItems: 'center'}} className="hero has-background-grey-light is-fullheight is-fullwidth">
-            <div className="hero-body">
+    return (        
+        <section className="section is-centered">
+            <div  className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
                         <div className="column">

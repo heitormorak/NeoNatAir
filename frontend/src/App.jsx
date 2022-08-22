@@ -1,4 +1,4 @@
-//import './App.css'
+import './App.css'
 import { React } from 'react'
 import useFetch from "./useFetch.js"
 
@@ -8,20 +8,37 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 
- 
+
 function App() {
-  return (<>
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Login/>}/>  
+  return (
+    <div className="wrapper">     
+      <BrowserRouter>
+        <Routes>
+        <Route exact path="/" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
-        <Route path="/register" element={<Register/>}/>        
-      </Routes>
-    </BrowserRouter>
-    </>);
+        <Route path="/register" element={<Register/>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
- 
+
 export default App;
+
+
+// function App() {
+//   return (<>
+//     <BrowserRouter>
+//       <Routes>
+//         <Route exact path="/" element={<Login/>}/>  
+//         <Route path="/dashboard" element={<Dashboard/>}/>
+//         <Route path="/register" element={<Register/>}/>        
+//       </Routes>
+//     </BrowserRouter>
+//     </>);
+// }
+ 
+// export default App;
 
 // const server = 'http://localhost:8080'
 
