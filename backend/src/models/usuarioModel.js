@@ -29,8 +29,8 @@ export const Usuario = conexao.define('usuario', {
         allowNull: false,
     },
 
-    profissao: {
-        type: Sequelize.FLOAT,
+    perfil: {
+        type: Sequelize.STRING,
         allowNull: true,
     },
 

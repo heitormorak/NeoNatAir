@@ -1,6 +1,7 @@
 import { Usuario } from '../models/usuarioModel.js';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { response } from 'express';
 
 export async function GetUsers (req, res) {
     try {
@@ -15,18 +16,25 @@ export async function GetUsers (req, res) {
 
 
 export async function Register (req,res) {
-    const { name, email, password, confPassword } = req.body;
+    const { cpf, telefone, name, email, password, confPassword } = req.body;
+    console.log("coisas:", req.body)
     if(password !== confPassword) return res.status(400).json({msg: "Password and Confirm Password do not match"});
-    const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
+    
     try {
-        await Users.create({
+        const salt = await bcrypt.genSalt();
+        const hashPassword = await bcrypt.hash(password, salt);
+
+        await Usuario.create({
+            cpf: cpf,
+            telefone: telefone,
             name: name,
             email: email,
             password: hashPassword
         });
         res.json({msg: "Registration Successful"});
     } catch (error){
+        res.status (400)
+        res.send ({msg: "Erro 400", error})
         console.log(error);
     }
 }

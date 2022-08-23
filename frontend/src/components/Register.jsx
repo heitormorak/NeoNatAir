@@ -5,6 +5,8 @@ import useFetch from "../useFetch.js"
 
  
 const Register = () => {
+    const [cpf, setCPF] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,48 +16,53 @@ const Register = () => {
     const server = 'http://localhost:8080'
 
 
-    const [register, fetchRegister] = useFetch(`${server}/register`, {method: 'POST'})
+    //const [register, fetchRegister] = useFetch(`${server}/register`, 'POST')
 
-    
-    const Register1 = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('http://localhost:8080/users', {
-                name: name,
-                email: email,
-                password: password,
-                confPassword: confPassword
-            });
-            history.push("/");
-        } catch (error) {
-            if (error.response) {
-                setMsg(error.response.data.msg);
-            }
+    async function Register0() {
+        const body = {
+            cpf: cpf,
+            telefone: telefone,
+            name: name,
+            email: email,
+            password: password,
+            confPassword: confPassword
         }
-    }
+        const response = await fetch(`${server}/register`, {
+            method: "POST",             
+            headers:{
+                accept : "application/json",
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })    
+        const bodyResponse = await response.json();
+        console.log(bodyResponse.body);
+        
+        console.log("AAAAAAAAAA")
 
+    }
     
  
     return (
-    <>
-    <button onClick={() => fetchRegister()}>Register</button>
-    
-    {register.isFetching && <p>Baixando info ambientes...</p>}
-    {register.didSucceed && (
-    register.data.map(registro => (
-        <Register33 {...registro} />
-      ))
-    )}
-        
-
-
         <section className="section is-centered">
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
                         <div className="column">
-                            <form onSubmit={Register1} className="box">
+                            <form onSubmit={Register0} className="box">
                                 <p className="has-text-centered">{msg}</p>
+                                <div className="field mt-5">
+                                    <label className="label">CPF</label>
+                                    <div className="controls">
+                                        <input type="text" className="input" placeholder="CPF" value={cpf} onChange={(e) => setCPF(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div className="field mt-5">
+                                    <label className="label">Telefone</label>
+                                    <div className="controls">
+                                        <input type="text" className="input" placeholder="Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                                    </div>
+                                </div>
                                 <div className="field mt-5">
                                     <label className="label">Name</label>
                                     <div className="controls">
@@ -89,18 +96,8 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-        </section></>
+        </section>
     )
 }
-
-function Register33({msg }) {
-    return (
-      <>
-      <h2>msg: {co2}</h2>   
-      </>
-    )
-  }
-
-
  
 export default Register
