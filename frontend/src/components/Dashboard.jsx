@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import Chart from "react-apexcharts";
 import { Grid } from '@mui/material';
-//import { AppWidgetSummary } from '../components/dashboard/AppWidgetSummary'
+import { AppWidgetSummary } from '../components/dashboard/AppWidgetSummary.jsx'
 
 const Dashboard = () => {
 
@@ -38,7 +38,7 @@ const Dashboard = () => {
             </div>
             <button onClick={() => setSeries(([{name: "heitor", data:[50,40]}]))}></button>
             <Grid item xs={12} sm={6} md={3}>
-            {/* <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} /> */}
+            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
             </Grid>
         </div>
         </div>
