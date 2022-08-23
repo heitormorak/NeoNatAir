@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../useFetch.js"
 
  
 const Register = () => {
@@ -16,9 +14,7 @@ const Register = () => {
     const server = 'http://localhost:8080'
 
 
-    //const [register, fetchRegister] = useFetch(`${server}/register`, 'POST')
-
-    async function Register0() {
+    async function Register() {
         const body = {
             cpf: cpf,
             telefone: telefone,
@@ -37,9 +33,6 @@ const Register = () => {
         })    
         const bodyResponse = await response.json();
         console.log(bodyResponse.body);
-        
-        console.log("AAAAAAAAAA")
-
     }
     
  
@@ -49,7 +42,7 @@ const Register = () => {
                 <div className="container">
                     <div className="columns is-centered">
                         <div className="column">
-                            <form onSubmit={Register0} className="box">
+                            <form onSubmit={Register} className="box">
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
                                     <label className="label">CPF</label>

@@ -17,7 +17,6 @@ export async function GetUsers (req, res) {
 
 export async function Register (req,res) {
     const { cpf, telefone, name, email, password, confPassword } = req.body;
-    console.log("coisas:", req.body)
     if(password !== confPassword) return res.status(400).json({msg: "Password and Confirm Password do not match"});
     
     try {
@@ -47,21 +46,29 @@ export async function Login (req, res) {
             }
         });
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        if(!match){
+        
+        if(!match){            
             return res.status(400).json({
-                msg: "Usuario ou senha incorreta"
+                msg: "Usuario ou senha incorreta"                
             });
         }
         const userId = user[0].id;
         const name = user[0].name;
         const email = user[0].email;
-        const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn: '15s'
+
+        let accessToken = null;
+
+        try{
+            accessToken = jwt.sign({name : name, email: email},"jsfgfjguwrg8783wgbjs849h2fu3cnsvh8wyr8fhwfvi2g225",{
+            expiresIn: 300
         });
-        const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
+        }catch(error){
+            console.log(error)
+        }
+        const refreshToken = jwt.sign({userId, name, email},"825y8i3hnfjmsbv7gwajbl7fobqrjfvbs7gbfj2q3bgh8f42",{
             expiresIn: '1d'
         });
-        await Users.update({refresh_token: refreshToken},{
+        await Usuario.update({refresh_token: refreshToken},{
             where:{
                 id: userId
             }
@@ -70,7 +77,8 @@ export async function Login (req, res) {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.json({ accessToken });        
+        res.json({ accessToken });              
+
     }catch (error){
         res.status(404).json({msg:"Usuario não encontrado"});
     }
