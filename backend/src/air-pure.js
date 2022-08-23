@@ -21,7 +21,7 @@ export async function LoginAirPure(req,res){
     let body = await airPureResponse.json()
     res.json(body)
     TOKEN = body.session_token
-    console.log(TOKEN)
+    //console.log(TOKEN)
 }
 
 //obtendo infos do ambiente

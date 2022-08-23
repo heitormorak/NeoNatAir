@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+//import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useFetch from "../useFetch.js"
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
     const history = useNavigate();
+    const server = 'http://localhost:8080'
+
+    const [register, fetchRegister] = useFetch(`${server}/register`)
+
  
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/login', {
+            await fetch('http://localhost:8080/login', {
                 email: email,
                 password: password
             });
@@ -23,7 +29,18 @@ const Login = () => {
         }
     }
  
-    return (        
+    return (     
+    <>
+    <button onClick={() => fetchRegister()}>Register</button>
+    
+    {register.isFetching && <p>Baixando info ambientes...</p>}
+    {register.didSucceed && (
+    register.data.map(registro => (
+        <Register {...registro} />
+      ))
+    )}
+        
+        
         <section className="section is-centered">
             <div  className="hero-body">
                 <div className="container">
@@ -51,8 +68,16 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section></>
     )
 }
  
+function Register({msg }) {
+  return (
+    <>
+    <h2>msg: {co2}</h2>   
+    </>
+  )
+}
+
 export default Login

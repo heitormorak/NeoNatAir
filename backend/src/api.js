@@ -42,14 +42,14 @@ app.get('/api/leitos', GetLeitos);
 // app.get('/api/equipestecnicas', GetEquipesTecnicas);
 
 //rotas NatAir
-app.use(cors({ credentials: true, origin:'https://localhost:5173'}));
-app.use(cookieParser());
-app.use(express.json());
+// app.use(cors({ credentials: true, origin:'https://localhost:5173'}));
+// app.use(cookieParser());
+// app.use(express.json());
 //app.use(router);
 
 app.get('/users', verifyToken, GetUsers);
 app.post('/login', Login);
-app.post('/users', Register);
+app.post('/register', Register);
 app.get('/token', refreshToken);
 app.delete('/logout', Logout);
 
