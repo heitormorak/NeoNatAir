@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import Chart from "react-apexcharts";
 import { Grid } from '@mui/material';
-import { AppWidgetSummary } from '../components/dashboard/AppWidgetSummary.jsx'
+import { AppWidgetSummary } from '../components/dashboard/AppWidgetSummary'
 
 const Dashboard = () => {
 
@@ -25,7 +25,8 @@ const Dashboard = () => {
     
     
    
-    return (
+    return (<>
+        <button> teste </button>
         <div className="app">
         <div className="row">
             <div className="mixed-chart">
@@ -42,7 +43,7 @@ const Dashboard = () => {
             </Grid>
         </div>
         </div>
-    );
+        </>);
     
 
 
