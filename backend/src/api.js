@@ -12,6 +12,7 @@ import { GetLeitos } from './routes/leito.js'
 import { GetUsers, Register, Login, Logout } from "./controllers/Users.js";
 import { verifyToken } from "./middleware/VerifyToken.js";
 import { refreshToken } from "./controllers/RefreshToken.js";
+import Chart from './controllers/chart.js'
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.post('/login', Login);
 app.post('/register', Register);
 app.get('/token', refreshToken);
 app.delete('/logout', Logout);
+app.get('/chart', Chart);
 
 
 

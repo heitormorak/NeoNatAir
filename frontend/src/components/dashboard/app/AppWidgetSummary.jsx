@@ -49,9 +49,6 @@ const colors  =
 const AppWidgetSummary = ({ title, total, icon, theme}) => {
   return (
     <Card
-      style={{
-        background: "209, 233, 252"
-      }}
       sx={{
         py: 5,
         boxShadow: 0,
@@ -59,6 +56,7 @@ const AppWidgetSummary = ({ title, total, icon, theme}) => {
         borderRadius: "16px",
         color: colors[theme].color,
         bgcolor: colors[theme].bgcolor,
+        minWidth: "200px"
         
       }}
      

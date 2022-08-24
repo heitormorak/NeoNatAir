@@ -14,37 +14,83 @@ const server = 'http://localhost:8080'
 
 
 const Dashboard = () => {
+    const [ultimaLeitura,setUltimaLeitura] = useState(null);
+    const [temperaturas, setTemperaturas] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        async function fetchTemperatura(){
+        const response = await fetch(`${server}/chart`, {
+            method: "GET",
+                headers: {            
+                    accept: "application/json",
+                    "content-type": "application/json"            
+                }
+        })
+        
+        const res = await response.json()
+        const temp= res.map(data =>{
+            return data.temperatura 
+        })
+        console.log(temp)
+        setTemperaturas([{
+            name: "Temperatura",
+            data : temp
+        }])
+    } 
+    fetchTemperatura();
+    setInterval(()=>{
+        fetchTemperatura();
+    },30000)
+    
+    },[])
     
     useEffect(()=>{
         
-        if(localStorage.getItem("token") === null) 
+        if(localStorage.getItem("token") === null) {
             navigate("/")
+        }           
+        
+        fetchUltimasLeituras()
         
         setInterval(()=>{
             fetchUltimasLeituras()
-        },10000)
+        },20000)
     
     },[])
 
     const idAmbiente = "1"
 
-    // const [infoAmbientes, fetchInfoAmbientes] = useFetch(`${server}/infoAmbientes/${encodeURIComponent(idAmbiente)}`)
-    // const [ultimaLeitura, fetchUltimasLeituras] = useFetch(`${server}/ultimaLeitura/${encodeURIComponent(idAmbiente)}`)
-
-    const [ultimaLeitura,setUltimaLeitura] = useState(null);
+   
     
     async function fetchUltimasLeituras(){
-        const response = await fetch(`${server}/ultimaLeitura`, {
-            method: "GET",
-            headers: {            
-                accept: "application/json",
-                "content-type": "application/json"            
+        try
+        {
+            const response = await fetch(`${server}/ultimaLeitura`, {
+                method: "GET",
+                headers: {            
+                    accept: "application/json",
+                    "content-type": "application/json"            
+                }
+            })
+            if (response.status >= 300 && response.status <=600){                
+                setUltimaLeitura(null)
             }
-        })
-        const body = await response.json();
-        console.log(body)
-        setUltimaLeitura(body)
+
+            const [body] = await response.json();
+            
+            console.log(body)
+            setUltimaLeitura(body)
+
+
+
+
+        }
+        catch(e)
+        {
+            console.log(e)
+            setUltimaLeitura(null)
+        }
 
     }
 
@@ -67,94 +113,60 @@ const Dashboard = () => {
         chart: {
             id: "basic-bar"
         },
-        xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        }
+ 
     })
-    const[series, setSeries] = useState([{        
-        name: "series-1",
-        data: [100,40,45,50,49,60,70,91]        
+    const[temperatura, setTemperatura] = useState([{        
+        name: "Temperatura",
+        data: [100,40,45,50,49]        
     }])  
 
 
    
     
-    return (<>  
-
-        <button onClick={() => fetchLogin()}> Teste Login </button>       
-        
-        <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>
-        
-        
-       
-       
-       
- 
+    return (
+    <div  >  
+        {/* <button onClick={() => fetchLogin()}> Teste Login </button>       
+        <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>   */}
+        <div  className="app" >
+            <div className="row">        
 
 
+                <Grid  container spacing={{ xs: 12, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    <Grid item xs={12} sm={4} md={4} >
+                        <AppWidgetSummary title="CO2" total={ultimaLeitura === null? "..." : ultimaLeitura.co2} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <AppWidgetSummary title="Ruído Sonoro" total={ultimaLeitura === null? "..." : ultimaLeitura.db} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>                    
+                    <Grid item xs={2} sm={4} md={4} >
+                        <AppWidgetSummary title="Luminosidade" total={ultimaLeitura === null? "..." : ultimaLeitura.lux} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <AppWidgetSummary title="Temperatura" total={ultimaLeitura === null? "..." : ultimaLeitura.temperatura} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <AppWidgetSummary title="Compostos Orgânicos Voláteis Totais" total={ultimaLeitura === null? "..." : ultimaLeitura.tvoc} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <AppWidgetSummary title="Umidade" total={ultimaLeitura === null? "..." : ultimaLeitura.umidade} theme="temp_1" icon={'ant-design:windows-filled'} />
+                    </Grid>
+                </Grid>
 
-        <div className="app">
-        <div className="row">
-            <div className="mixed-chart">
-            <Chart
-                options={options}
-                series={series}
-                type="bar"
-                width="500"
-            />
+                <div className="is-centered">
+                    <Chart
+                        options={options}
+                        series={temperaturas}
+                        type="line"
+                        width="500"
+                    />
+                </div>
+            <button onClick={() => setTemperatura(([{name: "heitor", data:[50,40]}]))}>Atualizar</button>
+
             </div>
-            <button onClick={() => setSeries(([{name: "heitor", data:[50,40]}]))}>Atualizar</button>
-
-
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} >
-                    <AppWidgetSummary title="CO2" total={ultimaLeitura === null? "..." : ultimaLeitura[0].co2} theme="temp_3" icon={'ant-design:windows-filled'} />
-                </Grid>
-                <Grid item xs={12} sm={6} >
-                    <AppWidgetSummary title="Lux" total={ultimaLeitura === null? "..." : ultimaLeitura[0].lux} theme="temp_3" icon={'ant-design:windows-filled'} />
-                </Grid>
-                <Grid item xs={12} sm={6} >
-                    <AppWidgetSummary title="Db" total={ultimaLeitura === null? "..." : ultimaLeitura[0].db} theme="temp_3" icon={'ant-design:windows-filled'} />
-                </Grid>
-            </Grid>
-
-
         </div>
-        </div>
-    </>);
+    </div>);
     
 }
-
-function InfoAmbiente({ id, sala, predio, local, dimensao, capmaxima, id_parametros }) {
-  return (
-    <>
-    <h2>Sala: {sala}</h2>
-    <h3>Prédio: {predio}</h3>
-    <h3>Local: {local}</h3>
-    </>
-  )
-}
-
-
-
-function UltimaLeitura({ co2, lux, db, eco2, tvoc, temperatura, umidade, datamedicao, sala }) {
-  return (
-    <>
-    <h2>co2: {co2}</h2>
-    <h3>lux: {lux}</h3>
-    <h3>db: {db}</h3>
-    <h3>eco2: {eco2}</h3>
-    <h3>tvoc: {tvoc}</h3>
-    <h3>temperatura: {temperatura}</h3>
-    <h3>umidade: {umidade}</h3>
-    <h3>datamedicao: {datamedicao}</h3>
-    <h3>sala: {sala}</h3>
-    </>
-  )
-}
-
-
-
 
 
 // const Dashboard = () => {

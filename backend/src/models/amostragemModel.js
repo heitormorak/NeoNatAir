@@ -9,16 +9,6 @@ export const Amostragem = conexao.define('amostragen', {
         allowNull: false,
     },
 
-    idUsuario: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-
     data: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -26,32 +16,26 @@ export const Amostragem = conexao.define('amostragen', {
 
     temperatura: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     },
 
     co2: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     },
 
     tvoc: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     },
 
     umidade: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     },
 
     luminosidade: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     },
 
     ruido: {
         type: Sequelize.FLOAT,
-        allowNull: false,
     }
 });
 

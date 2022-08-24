@@ -11,7 +11,6 @@ import Register from "./components/Register";
 
 function App() {
   return (
-    <div className="wrapper">     
       <BrowserRouter>
         <Routes>
         <Route exact path="/" element={<Login/>}/>
@@ -19,7 +18,6 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 
