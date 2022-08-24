@@ -6,6 +6,16 @@ let TOKEN = null
 
 //primeiro precisa fazer login no dispositivo
 export async function LoginAirPure(req,res){
+
+    const loginBody = JSON.stringify({
+        //senha: teste
+        //usr: "heitor1", 
+        //pass: "698dc19d489c4e4db73e28a713eab07b"
+    
+        //senha: 12345678
+        usr: "inf",
+        pass: "25d55ad283aa400af464c76d713c07ad"
+    })
     
     const airPureResponse = await fetch(`${serverURL}/api/login`,{
         method: "POST",
@@ -13,14 +23,16 @@ export async function LoginAirPure(req,res){
             accept : "application/json",
             "content-type": "application/json"
         },
-        body: JSON.stringify(req.body)
+        body: loginBody
     })
     
-    res.status(airPureResponse.status)
+    //res.status(airPureResponse.status)
 
     let body = await airPureResponse.json()
-    res.json(body)
+    //res.json(body)
     TOKEN = body.session_token
+
+   // return TOKEN
     //console.log(TOKEN)
 }
 
@@ -78,9 +90,11 @@ export async function GetLeiturasDia(req,res){
 //consulta última leitura
 export async function GetUltimaLeitura(req,res){
 
+    await LoginAirPure();
+
     let idAmbiente = req.params.idAmbiente;
 
-    const airPureResponse = await fetch(`${serverURL}/api/ultimoValor/${idAmbiente}`, {
+    const airPureResponse = await fetch(`${serverURL}/api/ultimoValor/1`, {
         method: "GET",
         headers:{
             'sessiontoken': TOKEN, 

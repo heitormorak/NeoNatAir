@@ -28,7 +28,7 @@ app.use(cors())
 app.post('/loginAirPure', LoginAirPure)
 app.get('/infoAmbientes/:id', GetInfoAmbientes)
 app.get('/leiturasDia/:parametro/:idAmbiente/:data', GetLeiturasDia)
-app.get('/ultimaLeitura/:idAmbiente', GetUltimaLeitura)
+app.get('/ultimaLeitura', GetUltimaLeitura)
 app.get('/ultimoAmbientes/:id', GetUltimoAmbientes)
 
  

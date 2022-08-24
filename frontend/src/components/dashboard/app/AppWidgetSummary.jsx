@@ -1,3 +1,4 @@
+import React from 'react';
 // @mui
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
@@ -20,37 +21,58 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
+
+
 // ----------------------------------------------------------------------
 
+const colors  = 
+{
+  "temp_1": {
+    bgcolor : "rgb(209,233,252)",
+    color: "rgb(6, 27, 100)"
+    },
+  "temp_2": {
+    bgcolor : "rgb(208, 242, 255)",
+    color: "rgb(4, 41, 122)"
+    },
+  "temp_3": {
+    bgcolor : "rgb(255, 247, 205)",
+    color: "rgb(122, 79, 1)"
+    },
+  "temp_4": {
+    bgcolor : "rgb(255, 231, 217)",
+    color: "rgb(122, 12, 46)"
+    }
+}
 
 
-const AppWidgetSummary = ({ title, total, icon, color = 'primary', sx, ...other }) => {
+const AppWidgetSummary = ({ title, total, icon, theme}) => {
   return (
     <Card
+      style={{
+        background: "209, 233, 252"
+      }}
       sx={{
         py: 5,
         boxShadow: 0,
         textAlign: 'center',
-        color: (theme) => theme.palette[color].darker,
-        bgcolor: (theme) => theme.palette[color].lighter,
-        ...sx,
+        borderRadius: "16px",
+        color: colors[theme].color,
+        bgcolor: colors[theme].bgcolor,
+        
       }}
-      {...other}
+     
     >
       <IconWrapperStyle
         sx={{
-          color: (theme) => theme.palette[color].dark,
-          backgroundImage: (theme) =>
-            `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
-              theme.palette[color].dark,
-              0.24
-            )} 100%)`,
+          color: colors[theme].color,
+          backgroundImage: "linear-gradient(135deg, rgba(16, 57, 150, 0) 0%, rgba(16, 57, 150, 0.24) 100%)"
         }}
       >
         <Iconify icon={icon} width={24} height={24} />
       </IconWrapperStyle>
 
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
+      <Typography variant="h3">{total}</Typography>
 
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         {title}

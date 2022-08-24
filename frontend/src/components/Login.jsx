@@ -25,6 +25,9 @@ const Login =() => {
             body: JSON.stringify(body)            
         })
         if (response.status >= 200 && response.status <=300){
+            const body = await response.json()
+            console.log(body)
+            localStorage.setItem("token",body.accessToken)
             navigate('/dashboard');       
         } else {
         console.log("ERRO");
