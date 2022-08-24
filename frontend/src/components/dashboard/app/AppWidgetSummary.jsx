@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
-import { fShortenNumber } from './formatNumber';
+import { fShortenNumber } from '../formatNumber';
 // components
-import Iconify from './Iconify';
+import Iconify from '../Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -22,15 +22,9 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-AppWidgetSummary.propTypes = {
-  color: PropTypes.string,
-  icon: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
-  sx: PropTypes.object,
-};
 
-export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
+
+const AppWidgetSummary = ({ title, total, icon, color = 'primary', sx, ...other }) => {
   return (
     <Card
       sx={{
@@ -64,3 +58,13 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
     </Card>
   );
 }
+
+AppWidgetSummary.propTypes = {
+  color: PropTypes.string,
+  icon: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
+  sx: PropTypes.object,
+};
+
+export default AppWidgetSummary
