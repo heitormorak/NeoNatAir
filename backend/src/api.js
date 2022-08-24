@@ -13,6 +13,8 @@ import { GetUsers, Register, Login, Logout } from "./controllers/Users.js";
 import { verifyToken } from "./middleware/VerifyToken.js";
 import { refreshToken } from "./controllers/RefreshToken.js";
 import Chart from './controllers/chart.js'
+import Alert from './controllers/Alert.js'
+
 
 dotenv.config();
 
@@ -54,6 +56,8 @@ app.post('/register', Register);
 app.get('/token', refreshToken);
 app.delete('/logout', Logout);
 app.get('/chart', Chart);
+app.get('/alert', Alert);
+
 
 
 

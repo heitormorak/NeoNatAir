@@ -9,6 +9,7 @@ import AppWidgetSummary from './dashboard/app/AppWidgetSummary';
 import { useTheme } from '@emotion/react';
 import { Box } from '@mui/system';
 import useFetch from '../useFetch';
+import { ToastContainer, toast } from 'react-toastify';
 
 const server = 'http://localhost:8080'
 
@@ -58,6 +59,38 @@ const Dashboard = () => {
         },20000)
     
     },[])
+
+    useEffect(()=>{          
+        setInterval(()=>{
+            fetchAlert()
+        },10000)
+    
+    },[])
+
+    async function fetchAlert(){
+        try
+        {
+            const response = await fetch(`${server}/alert`, {
+                method: "GET",
+                headers: {            
+                    accept: "application/json",
+                    "content-type": "application/json"            
+                }
+            })
+           
+            const body = await response.json();
+    
+            if(body.every(temp => temp > 20) ){
+                
+            }
+            
+            console.log("Alert:",body)
+        }
+        catch(e)
+        {
+            console.log(e)
+        }
+    }
 
     const idAmbiente = "1"
 
@@ -124,7 +157,7 @@ const Dashboard = () => {
    
     
     return (
-    <div  >  
+    <div  > 
         {/* <button onClick={() => fetchLogin()}> Teste Login </button>       
         <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>   */}
         <div  className="app" >
@@ -152,6 +185,7 @@ const Dashboard = () => {
                     </Grid>
                 </Grid>
 
+
                 <div className="is-centered">
                     <Chart
                         options={options}
@@ -160,7 +194,10 @@ const Dashboard = () => {
                         width="500"
                     />
                 </div>
-            <button onClick={() => setTemperatura(([{name: "heitor", data:[50,40]}]))}>Atualizar</button>
+                
+            {/* <button onClick={() => toast.error("Error Notification !", {
+        position: toast.POSITION.TOP_LEFT
+      })}>Atualizar</button> */}
 
             </div>
         </div>
