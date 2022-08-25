@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { conexao } from "./db.js";
+import { conexao } from "../config/db.js";
 import { Usuario } from "./usuarioModel.js";
 
 //Define a tabela de usuários e suas colunas, conforme documentação do sequelize
