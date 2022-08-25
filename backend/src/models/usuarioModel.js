@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { conexao } from "./db.js";
+import { conexao } from "../config/db.js";
 
 //Define a tabela de usuários e suas colunas, conforme documentação do sequelize
 
@@ -14,13 +14,13 @@ export const Usuario = conexao.define('usuario', {
         allowNull: false,
     },
 
-    nome: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
     },
 
-    senha: {
-        type: Sequelize.DATE,
+    password: {
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
@@ -29,8 +29,13 @@ export const Usuario = conexao.define('usuario', {
         allowNull: false,
     },
 
-    profissao: {
-        type: Sequelize.FLOAT,
+    perfil: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
+
+    refresh_token: {
+        type: Sequelize.TEXT,
         allowNull: true,
     }
 });
