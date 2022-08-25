@@ -105,13 +105,13 @@ export async function GetUltimaLeitura(req,res){
     const body = await airPureResponse.json()
     await Amostragem.create({
         idAmbiente: 1,
-        data: body[0].datamedicao,
-        temperatura: body[0].temperatura,
-        co2: body[0].co2,
-        tvoc: body[0].tvoc,
-        umidade: body[0].umidade,
-        luminosidade: body[0].lux,
-        ruido: body[0].db
+        data: body[0]?.datamedicao,
+        temperatura: body[0]?.temperatura,
+        co2: body[0]?.co2,
+        tvoc: body[0]?.tvoc,
+        umidade: body[0]?.umidade,
+        luminosidade: body[0]?.lux,
+        ruido: body[0]?.db
     })
 
 
