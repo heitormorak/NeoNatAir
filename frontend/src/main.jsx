@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import "bulma/css/bulma.css";
+import 'reactjs-popup/dist/index.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
