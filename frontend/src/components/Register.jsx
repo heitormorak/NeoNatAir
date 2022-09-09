@@ -44,6 +44,7 @@ const Register = () => {
                         <div className="column">
                             <form onSubmit={Register} className="box">
                                 <p className="has-text-centered">{msg}</p>
+                                <img src='../public/img/NeoNatAir.png'></img>
                                 <div className="field mt-5">
                                     <label className="label">CPF</label>
                                     <div className="controls">

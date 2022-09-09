@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import '../components/css/Login.css'
 
 
 const Login =() => {
@@ -43,8 +43,9 @@ const Login =() => {
                         <div className="column">
                             <div className="box">
                                 <p className="has-text-centered">{msg}</p>
+                                <img src='../public/img/NeoNatAir.png'></img>
                                 <div className="field mt-5">
-                                    <label className="label">Email or Username</label>
+                                    <label className="label">Email</label>
                                     <div className="controls">
                                         <input type="text" className="input" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
@@ -52,10 +53,10 @@ const Login =() => {
                                 <div className="field mt-5">
                                     <label className="label">Password</label>
                                     <div className="controls">
-                                        <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                        <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)}/>
                                     </div>
                                 <div className="field mt-5">
-                                    <button onClick={() => Auth()}>Teste</button>
+                                    <button onClick={() => Auth()}>Entrar</button>
                                 </div>
                                 </div>
                             </div>

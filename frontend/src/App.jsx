@@ -1,4 +1,4 @@
-import './App.css'
+//import './App.css'
 import { React } from 'react'
 import useFetch from "./useFetch.js"
 
@@ -6,18 +6,23 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
+import ResponsiveAppBar from "./components/Nav";
 import Register from "./components/Register";
+import api from './services/api';
 
+//const authToken = sessionStorage.getItem("token");
+//api.defaults.headers.Authorization = `Bearer ${authToken}`;
 
 function App() {
   return (
       <BrowserRouter>
+      <ResponsiveAppBar></ResponsiveAppBar>
         <Routes>
         <Route exact path="/" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/register" element={<Register/>}/>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>      
   );
 }
 
