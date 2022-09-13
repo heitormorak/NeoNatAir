@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import api from "../services/api";
-import { useHistory } from "react-router-dom";
 
 //Componente para logout
 const Logout = () => {
-    let history = useHistory();
 
-    useEffect(() => {
-        localStorage.clear();
+    
+        console.log(localStorage.getItem("token"));
+        //localStorage.clear();
         localStorage.removeItem('token');
         //sessionStorage.removeItem("token");
 
         setTimeout(() => {
-            window.location.href = "/login";
+            window.location.href = "/";
         }, 100);
-    }, []);
 
     return (
     <>

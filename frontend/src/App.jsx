@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import ResponsiveAppBar from "./components/Nav";
 import Register from "./components/Register";
 import api from './services/api';
+import Logout from './components/Logout.jsx';
 
 //const authToken = sessionStorage.getItem("token");
 //api.defaults.headers.Authorization = `Bearer ${authToken}`;
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/logout" element={<Logout/>}/>
         </Routes>
       </BrowserRouter>      
   );
