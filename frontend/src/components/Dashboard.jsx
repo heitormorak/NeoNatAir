@@ -15,6 +15,13 @@ const server = 'http://localhost:8080'
 const Dashboard = () => {
     const [ultimaLeitura,setUltimaLeitura] = useState(null);
     const [temperaturas, setTemperaturas] = useState([]);
+    const [limitCO2,setLimitCO2] = useState(null);
+    const [limitRuido,setLimitRuido] = useState(null);
+    const [limitLuminosidade,setLimitLuminosidade] = useState(null);
+    const [limitTemperatura,setLimitTemperatura] = useState(null);
+    const [limitCOVT,setLimitCOVT] = useState(null);
+    const [limitUmidade,setLimitUmidade] = useState(null);
+
 
     const [alert, setAlert] = React.useState({
         type: 'error',
@@ -39,6 +46,29 @@ const Dashboard = () => {
     }
 
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        async function fetchParameters(){
+            const response = await fetch(`${server}/parameter`, 
+            {
+                method: "GET",
+                headers: {            
+                    accept: "application/json",
+                    "content-type": "application/json"            
+                }
+            })
+            const [body] = await response.json()
+            setLimitCO2(body.limitCo2)
+            setLimitRuido(body.limitRuidoSonoro)
+            setLimitLuminosidade(body.limitLuminosidade)
+            setLimitTemperatura(body.limitTemperatura)                
+            setLimitCOVT(body.limitCOVT)
+            setLimitUmidade(body.limitUmidade)
+
+
+        }
+        fetchParameters()
+    },[])
 
     useEffect(()=>{
         async function fetchTemperatura(){
@@ -113,17 +143,17 @@ const Dashboard = () => {
             
             var message = []
             //alterar para .every na versão final
-            if(body.some(element => element.co2 > 800) )
+            if(body.some(element => element.co2 > limitCO2) && limitCO2 !== null )
                 message.push(`CO2 acima do limite`)
-            if(body.some(element => element.luminosidade > 200) )
+            if(body.some(element => element.luminosidade > limitRuido) && limitRuido !== null)
                 message.push(`Luminosidade acima do limite`)
-            if(body.some(element => element.ruido > 200) )
+            if(body.some(element => element.ruido > limitLuminosidade)  && limitLuminosidade !== null)
                 message.push(`Ruído acima do limite`)
-            if(body.some(element => element.temperatura > 200) )
+            if(body.some(element => element.temperatura > limitTemperatura)  && limitTemperatura !== null)
                 message.push(`Temperatura acima do limite`)
-            if(body.some(element => element.tvoc > 100) )
+            if(body.some(element => element.tvoc > limitCOVT)  && limitRlimitCOVTuido !== null)
                 message.push(`TVOC acima do limite`)
-            if(body.some(element => element.umidade > 200) )
+            if(body.some(element => element.umidade > limitUmidade)  && limitUmidade !== null)
                 message.push(` Umidade acima do limite`)
             if(message.length !== 0){       
                 console.log(message)         
@@ -196,6 +226,7 @@ const Dashboard = () => {
         localStorage.clear()
         navigate('/')
     }
+
    
     return (
 
@@ -216,44 +247,41 @@ const Dashboard = () => {
             />
             {/* <button onClick={() => fetchLogin()}> Teste Login </button>       
             <button onClick={() => fetchInfoAmbientes()}>Teste Info Ambiente</button>   */}
-
+            
             <Grid container>
+
                 <Grid   classname="side-bar" 
-                        xs={1}
-                        style={{    textAlign:"center",
-                                    padding:'10px',
-                                    background:"rgb(208, 242, 255)",
-                                    height:"100vh",
-                                }}  
+                    xs={1}
+                    style={{    textAlign:"center",
+                                padding:'10px',
+                                background:"rgb(208, 242, 255)",
+                                height:"100vh",
+                            }}  
                     >
                     <Grid   container
                             direction="column"
                             justifyContent="space-between"
                             style={{height:"100%"}} >
-                            <Grid  style={{ background:''}}>
-                                <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                    <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Home</p>       
-                                </Button >
-                                <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                    <p style={{ color:'black', fontWeight:'bold', fontSize: '15px'}}>Reports</p>       
-                                </Button >
-                                <Button style={{ width:'100%',marginBottom:'5px'}} href='/parameters'>
-                                    <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Parameters</p>       
-                                </Button >
-                            </Grid>
-                            <Grid  style={{ justifyContent:"flex-end"}}>
-                                <Button style={{ width:'100%',marginBottom:'5px'}} onClick={()=> Logout()}>
-                                    <p style={{color:'black', fontWeight:'bold'}}>Logout</p>       
-                                </Button >
-                            </Grid>
-                    </Grid>
-                   
-                 
-                    <div>
-                      
-                    </div>
-                </Grid>                
+                        <Grid  style={{ background:''}}>
+                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
+                                <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Home</p>       
+                            </Button >
+                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
+                                <p style={{ color:'black', fontWeight:'bold', fontSize: '15px'}}>Reports</p>       
+                            </Button >
+                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/parameters'>
+                                <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Parameters</p>       
+                            </Button >
+                        </Grid>
+                        <Grid  style={{ justifyContent:"flex-end"}}>
+                            <Button style={{ width:'100%',marginBottom:'5px'}} onClick={()=> Logout()}>
+                                <p style={{color:'black', fontWeight:'bold'}}>Logout</p>       
+                            </Button >
+                        </Grid>
+                </Grid>
 
+                </Grid>                
+                
                 <Grid   classname="main-dashboad" 
                         style={{  textAlign:"center",height:"100vh", padding:'50px'}} 
                         xs={11}>
