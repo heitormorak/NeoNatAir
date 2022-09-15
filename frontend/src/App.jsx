@@ -7,15 +7,18 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import Parameters from "./components/Parameters";
+
 
 
 function App() {
   return (
-      <BrowserRouter>
+      <BrowserRouter  >
         <Routes>
         <Route exact path="/" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/parameters" element={<Parameters/>}/>
         </Routes>
       </BrowserRouter>
   );

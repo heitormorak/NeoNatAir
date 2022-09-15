@@ -11,7 +11,6 @@ export const Amostragem = conexao.define('amostragen', {
 
     data: {
         type: Sequelize.DATE,
-        allowNull: false,
     },
 
     temperatura: {

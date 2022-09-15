@@ -24,6 +24,7 @@ O NeoNatAir auxiliará os cuidados do ambiente UTIN através do monitoramento da
 ## Pré-requisitos
 - NodeJS
 - MySQL
+- Banco mysql vazio com nome 'neonatair'
 
 ## Instalação
 - npm install
