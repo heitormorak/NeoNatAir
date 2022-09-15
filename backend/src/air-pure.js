@@ -18,6 +18,8 @@ export async function LoginAirPure(req,res){
         pass: "25d55ad283aa400af464c76d713c07ad"
     })
     
+    "p2qf31a2m7psxzc2e3ddcl"
+
     const airPureResponse = await fetch(`${serverURL}/api/login`,{
         method: "POST",
         headers:{
@@ -71,8 +73,6 @@ export async function GetLeiturasDia(req,res){
     let idAmbiente = req.params.idAmbiente;
     let data = req.params.data;
 
-    console.log("aaaaa:", parametro, idAmbiente, data);
-
 
     const airPureResponse = await fetch(`${serverURL}/api/mediaDia/${parametro}/${idAmbiente}/${data}`, {
         method: "GET",
@@ -85,7 +85,6 @@ export async function GetLeiturasDia(req,res){
     res.status(airPureResponse.status)
     let body = await airPureResponse.json()
     res.json(body)
-   // res.json(await airPureResponse.json())
 }
 
 //consulta última leitura

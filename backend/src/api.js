@@ -14,12 +14,34 @@ import { verifyToken } from "./middleware/VerifyToken.js";
 import { refreshToken } from "./controllers/RefreshToken.js";
 import Chart from './controllers/chart.js'
 import Alert from './controllers/Alert.js'
+import {Parameters} from './models/parametersModel.js'
 
 
 dotenv.config();
 
 //iniciando banco
 await conexao.sync();
+
+try{
+    const parameters = await Parameters.findOrCreate({
+        where:{
+            idAirPure: null,
+            limitCo2: null,
+            limitRuidoSonoro: null,
+            limitLuminosidade: null,
+            limitTemperatura: null,
+            limitCOVT: null,
+            limitUmidade: null,
+        },
+    })
+    console.log("parameters")
+    console.log(parameters)
+
+}catch(error){
+    console.log(error)
+
+}
+
 
 const app = express()
 const port = 8080;
