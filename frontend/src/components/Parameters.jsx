@@ -37,7 +37,6 @@ const Parameters = () => {
             setLimitUmidade(body.limitUmidade)
 
 
-            setParameters(body)
         }
         fetchParameters()
 
@@ -63,7 +62,7 @@ const Parameters = () => {
     }
 
     return(
-        <div style={{width:'100vw',height:"100vh" }}> 
+        <div style={{width:'100vw',height:"200vh" }}> 
         <Alert
             header={'ATENÇÃO'}
             // btnText={'X'}
@@ -88,7 +87,7 @@ const Parameters = () => {
                 style={{    textAlign:"center",
                             padding:'10px',
                             background:"rgb(208, 242, 255)",
-                            height:"100vh",
+                            height:"200vh",
                         }}  
                 >
                 <Grid   container
@@ -97,13 +96,13 @@ const Parameters = () => {
                         style={{height:"100%"}} >
                     <Grid  style={{ background:''}}>
                         <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                            <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Home</p>       
+                            <p style={{color:'black', fontWeight:'bold', fontSize: '12px'}}>Home</p>       
                         </Button >
                         <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                            <p style={{ color:'black', fontWeight:'bold', fontSize: '15px'}}>Reports</p>       
+                            <p style={{ color:'black', fontWeight:'bold', fontSize: '12px'}}>Reports</p>       
                         </Button >
                         <Button style={{ width:'100%',marginBottom:'5px'}} href='/parameters'>
-                            <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Parameters</p>       
+                            <p style={{color:'black', fontWeight:'bold', fontSize: '12px'}}>Parameters</p>       
                         </Button >
                     </Grid>
                     <Grid  style={{ justifyContent:"flex-end"}}>
