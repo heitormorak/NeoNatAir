@@ -263,18 +263,18 @@ const Dashboard = () => {
                             justifyContent="space-between"
                             style={{height:"100%"}} >
                         <Grid  style={{ background:''}}>
-                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Home</p>       
+                            <Button style={{ width:'70%',marginBottom:'5px'}} href='/dashboard'>
+                                <p style={{color:'black', fontWeight:'bold', fontSize: '12px'}}>Home</p>       
                             </Button >
-                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                <p style={{ color:'black', fontWeight:'bold', fontSize: '15px'}}>Reports</p>       
+                            <Button style={{ width:'70%',marginBottom:'5px'}} href='/dashboard'>
+                                <p style={{ color:'black', fontWeight:'bold', fontSize: '12px'}}>Reports</p>       
                             </Button >
-                            <Button style={{ width:'100%',marginBottom:'5px'}} href='/parameters'>
-                                <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Parameters</p>       
+                            <Button style={{ width:'70%',marginBottom:'5px'}} href='/parameters'>
+                                <p style={{color:'black', fontWeight:'bold', fontSize: '12px'}}>Parameters</p>       
                             </Button >
                         </Grid>
                         <Grid  style={{ justifyContent:"flex-end"}}>
-                            <Button style={{ width:'100%',marginBottom:'5px'}} onClick={()=> Logout()}>
+                            <Button style={{ width:'70%',marginBottom:'5px'}} onClick={()=> Logout()}>
                                 <p style={{color:'black', fontWeight:'bold'}}>Logout</p>       
                             </Button >
                         </Grid>
