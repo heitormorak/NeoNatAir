@@ -11,7 +11,7 @@ import Register from "./components/Register";
 
 function App() {
   return (
-      <BrowserRouter>
+      <BrowserRouter  >
         <Routes>
         <Route exact path="/" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>

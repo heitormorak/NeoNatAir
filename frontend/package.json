@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "reactjs-popup": "^2.0.5",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@faker-js/faker": "^7.3.0",
