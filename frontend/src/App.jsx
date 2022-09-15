@@ -11,7 +11,7 @@ import Register from "./components/Register";
 import api from './services/api';
 import Logout from './components/Logout.jsx';
 
-//const authToken = sessionStorage.getItem("token");
+const authToken = localStorage.getItem("token");
 //api.defaults.headers.Authorization = `Bearer ${authToken}`;
 
 function App() {
@@ -19,10 +19,19 @@ function App() {
       <BrowserRouter>
       <ResponsiveAppBar></ResponsiveAppBar>
         <Routes>
-        <Route exact path="/" element={<Login/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/logout" element={<Logout/>}/>
+        {!authToken ? (
+          <>
+            <Route exact path={"/"} element={<Login/>} />
+            <Route path="/register" element={<Register/>}/>
+          </>
+          
+        ) : (
+          <>
+          <Route exact path={"/"} element={<Dashboard/>} />
+            <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path="/logout" element={<Logout/>}/>
+          </>
+        )}
         </Routes>
       </BrowserRouter>      
   );

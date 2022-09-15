@@ -14,8 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
+const authToken = localStorage.getItem("token");
 
-const pages = ['Dashboard', 'Register', 'Logout'];
+const pages = !authToken ? ['Register'] : ['Dashboard', 'Alertas', 'Graficos', 'Logout'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
@@ -140,11 +141,11 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            {!authToken? null :(<Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
-            </Tooltip>
+            </Tooltip>)}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
