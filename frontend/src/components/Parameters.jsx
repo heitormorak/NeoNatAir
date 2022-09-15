@@ -11,12 +11,12 @@ import 'react-popup-alert/dist/index.css'
 const server = 'http://localhost:8080'
 
 const Parameters = () => {
-    // const [limitCO2,setLimitCO2] = useState(null);
-    // const [limitRuido,setLimitRuido] = useState(null);
-    // const [limitLuminosidade,setLimitLuminosidade] = useState(null);
-    // const [limitTemperatura,setLimitTemperatura] = useState(null);
-    // const [limitCOVT,setLimitCOVT] = useState(null);
-    // const [limitUmidade,setLimitUmidade] = useState(null);
+    const [limitCO2,setLimitCO2] = useState(null);
+    const [limitRuido,setLimitRuido] = useState(null);
+    const [limitLuminosidade,setLimitLuminosidade] = useState(null);
+    const [limitTemperatura,setLimitTemperatura] = useState(null);
+    const [limitCOVT,setLimitCOVT] = useState(null);
+    const [limitUmidade,setLimitUmidade] = useState(null);
     const [parameters, setParameters] = useState({})
 
     useEffect(()=>{
@@ -29,12 +29,26 @@ const Parameters = () => {
                     "content-type": "application/json"            
                 }
             })
-            const body = await response.json()
-            console.log(body)
+            const [body] = await response.json()
+            setLimitCO2(body.limitCO2)
+            setLimitRuido(body.limitRuidoSonoro)
+            setLimitLuminosidade(body.limitLuminosidade)
+            setLimitTemperatura(body.limitTemperatura)                
+            setLimitCOVT(body.limitCOVT)
+            setLimitUmidade(body.limitUmidade)
+
+
+            setParameters(body)
         }
         fetchParameters()
 
-    })
+    },[])
+
+    async function Save(){
+        const body{
+            
+        }
+    }
 
     return(
         <div style={{width:'100vw',height:"100vh" }}> 
@@ -89,12 +103,37 @@ const Parameters = () => {
 
             </Grid>                
             
-            <Grid   classname="main-dashboad" 
-                    style={{  textAlign:"center",height:"100vh", padding:'50px'}} 
+            <Grid   direction="column"
+                    classname="main-dashboad" 
+                    style={{  alignItems:'center',justifyContent: 'center',textAlign:"center",height:"100vh",display:'flex'}} 
                     xs={11}>
-
-            
-                
+                        <div style={{background:'',alignItems:'center',justifyContent: 'center',display:'flex', flexDirection: 'column',width:'40%',height:'50%',boxShadow:'1px 2px 9px #C0C0C0'}}>
+                            <span style={{background:'', width:''}}>
+                                <label style={{textAlign:'left'}}>Co2: </label>
+                                <input placeholder="CO2" onChange={(e)=>setLimitCO2(e.target.value)} value={limitCO2 !== null? limitCO2:''} style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <span >
+                                <label style={{textAlign:'left'}}>Ruido Sonoro: </label>
+                                <input placeholder="Ruido Sonoro" onChange={(e)=>setLimitRuido(e.target.value)} value={limitRuido !== null? limitRuido:''} style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <span>
+                                <label style={{textAlign:'left'}}>Luminosidade: </label>
+                                <input placeholder="Luminosidade" onChange={(e)=>setLimitLuminosidade(e.target.value)} value={limitLuminosidade !== null? limitLuminosidade:''} style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <span>
+                                <label style={{textAlign:'left'}}>Temperatura: </label>
+                                <input placeholder="Temperatura" onChange={(e)=>setLimitTemperatura(e.target.value)} value={limitTemperatura !== null? limitTemperatura:''} style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <span>
+                                <label style={{textAlign:'left'}}>COVT: </label>
+                                <input placeholder="COVT" onChange={(e)=>setLimitCOVT(e.target.value)} value={limitCOVT !== null? limitCOVT:''}  style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <span>
+                                <label style={{textAlign:'left'}}>Umidade: </label>
+                                <input placeholder="Umidade" onChange={(e)=>setLimitUmidade(e.target.value)} value={limitUmidade !== null? limitCOVT:''}  style={{ width:'50%',margin:5}}></input>
+                            </span>
+                            <button style={{marginTop: 30}}>save</button>
+                        </div>
                 </Grid>
             </Grid>
         
