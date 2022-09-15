@@ -15,6 +15,13 @@ const server = 'http://localhost:8080'
 const Dashboard = () => {
     const [ultimaLeitura,setUltimaLeitura] = useState(null);
     const [temperaturas, setTemperaturas] = useState([]);
+    const [limitCO2,setLimitCO2] = useState(null);
+    const [limitRuido,setLimitRuido] = useState(null);
+    const [limitLuminosidade,setLimitLuminosidade] = useState(null);
+    const [limitTemperatura,setLimitTemperatura] = useState(null);
+    const [limitCOVT,setLimitCOVT] = useState(null);
+    const [limitUmidade,setLimitUmidade] = useState(null);
+
 
     const [alert, setAlert] = React.useState({
         type: 'error',
@@ -39,6 +46,29 @@ const Dashboard = () => {
     }
 
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        async function fetchParameters(){
+            const response = await fetch(`${server}/parameter`, 
+            {
+                method: "GET",
+                headers: {            
+                    accept: "application/json",
+                    "content-type": "application/json"            
+                }
+            })
+            const [body] = await response.json()
+            setLimitCO2(body.limitCo2)
+            setLimitRuido(body.limitRuidoSonoro)
+            setLimitLuminosidade(body.limitLuminosidade)
+            setLimitTemperatura(body.limitTemperatura)                
+            setLimitCOVT(body.limitCOVT)
+            setLimitUmidade(body.limitUmidade)
+
+
+        }
+        fetchParameters()
+    },[])
 
     useEffect(()=>{
         async function fetchTemperatura(){
@@ -113,17 +143,17 @@ const Dashboard = () => {
             
             var message = []
             //alterar para .every na versão final
-            if(body.some(element => element.co2 > 300) )
+            if(body.some(element => element.co2 > limitCO2) && limitCO2 !== null )
                 message.push(`CO2 acima do limite`)
-            if(body.some(element => element.luminosidade > 100) )
+            if(body.some(element => element.luminosidade > limitRuido) && limitRuido !== null)
                 message.push(`Luminosidade acima do limite`)
-            if(body.some(element => element.ruido > 100) )
+            if(body.some(element => element.ruido > limitLuminosidade)  && limitLuminosidade !== null)
                 message.push(`Ruído acima do limite`)
-            if(body.some(element => element.temperatura > 100) )
+            if(body.some(element => element.temperatura > limitTemperatura)  && limitTemperatura !== null)
                 message.push(`Temperatura acima do limite`)
-            if(body.some(element => element.tvoc > 100) )
+            if(body.some(element => element.tvoc > limitCOVT)  && limitRlimitCOVTuido !== null)
                 message.push(`TVOC acima do limite`)
-            if(body.some(element => element.umidade > 100) )
+            if(body.some(element => element.umidade > limitUmidade)  && limitUmidade !== null)
                 message.push(` Umidade acima do limite`)
             if(message.length !== 0){       
                 console.log(message)         
