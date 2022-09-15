@@ -12,6 +12,7 @@ import { GetLeitos } from './routes/leito.js'
 import { GetUsers, Register, Login, Logout } from "./controllers/Users.js";
 import { verifyToken } from "./middleware/VerifyToken.js";
 import { refreshToken } from "./controllers/RefreshToken.js";
+import { getParameters ,setParameters} from './controllers/Parameters.js'
 import Chart from './controllers/chart.js'
 import Alert from './controllers/Alert.js'
 import {Parameters} from './models/parametersModel.js'
@@ -56,21 +57,10 @@ app.get('/leiturasDia/:parametro/:idAmbiente/:data', GetLeiturasDia)
 app.get('/ultimaLeitura', GetUltimaLeitura)
 app.get('/ultimoAmbientes/:id', GetUltimoAmbientes)
 
- 
-
 //rotas NeoNatAir
 app.get('/api/amostragens', GetAmostragens);
 app.get('/api/airpures', GetAirPures);
 app.get('/api/leitos', GetLeitos);
-//app.get('/api/usuarios', GetUsers);
-// app.get('/api/administradores', GetAdministradores);
-// app.get('/api/equipestecnicas', GetEquipesTecnicas);
-
-//rotas NatAir
-// app.use(cors({ credentials: true, origin:'https://localhost:5173'}));
-// app.use(cookieParser());
-// app.use(express.json());
-//app.use(router);
 
 app.get('/users', verifyToken, GetUsers);
 app.post('/login', Login);
@@ -79,6 +69,11 @@ app.get('/token', refreshToken);
 app.delete('/logout', Logout);
 app.get('/chart', Chart);
 app.get('/alert', Alert);
+
+//Parameters
+app.get('/parameter',getParameters);
+app.post('/parameter',setParameters);
+
 
 
 
