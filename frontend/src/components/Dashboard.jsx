@@ -232,13 +232,13 @@ const Dashboard = () => {
                             style={{height:"100%"}} >
                             <Grid  style={{ background:''}}>
                                 <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                    <p style={{color:'black', fontWeight:'bold'}}>Home</p>       
+                                    <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Home</p>       
                                 </Button >
                                 <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                    <p style={{color:'black', fontWeight:'bold'}}>Reports</p>       
+                                    <p style={{ color:'black', fontWeight:'bold', fontSize: '15px'}}>Reports</p>       
                                 </Button >
-                                <Button style={{ width:'100%',marginBottom:'5px'}} href='/dashboard'>
-                                    <p style={{color:'black', fontWeight:'bold'}}>Parameters</p>       
+                                <Button style={{ width:'100%',marginBottom:'5px'}} href='/parameters'>
+                                    <p style={{color:'black', fontWeight:'bold', fontSize: '15px'}}>Parameters</p>       
                                 </Button >
                             </Grid>
                             <Grid  style={{ justifyContent:"flex-end"}}>
