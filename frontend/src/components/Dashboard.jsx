@@ -64,9 +64,8 @@ const Dashboard = () => {
             setLimitTemperatura(body.limitTemperatura)                
             setLimitCOVT(body.limitCOVT)
             setLimitUmidade(body.limitUmidade)
-
-
         }
+
         fetchParameters()
     },[])
 
@@ -143,17 +142,18 @@ const Dashboard = () => {
             
             var message = []
             //alterar para .every na versão final
-            if(body.some(element => element.co2 > limitCO2) && limitCO2 !== null )
+            if(body.some(element => element.co2 > limitCO2) && limitCO2!== null )
+                console.log(limitCO2)
                 message.push(`CO2 acima do limite`)
-            if(body.some(element => element.luminosidade > limitRuido) && limitRuido !== null)
+            if(body.some(element => element.luminosidade > limitLuminosidade) && limitLuminosidade!== null )
                 message.push(`Luminosidade acima do limite`)
-            if(body.some(element => element.ruido > limitLuminosidade)  && limitLuminosidade !== null)
+            if(body.some(element => element.ruido > limitRuido) && limitRuido!== null )
                 message.push(`Ruído acima do limite`)
-            if(body.some(element => element.temperatura > limitTemperatura)  && limitTemperatura !== null)
+            if(body.some(element => element.temperatura > limitTemperatura) && limitTemperatura!== null )
                 message.push(`Temperatura acima do limite`)
-            if(body.some(element => element.tvoc > limitCOVT)  && limitRlimitCOVTuido !== null)
+            if(body.some(element => element.tvoc > limitCOVT) && limitCOVT!== null)
                 message.push(`TVOC acima do limite`)
-            if(body.some(element => element.umidade > limitUmidade)  && limitUmidade !== null)
+            if(body.some(element => element.umidade > limitUmidade) && limitUmidade!== null )
                 message.push(` Umidade acima do limite`)
             if(message.length !== 0){       
                 console.log(message)         

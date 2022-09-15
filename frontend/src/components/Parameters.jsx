@@ -37,7 +37,6 @@ const Parameters = () => {
             setLimitUmidade(body.limitUmidade)
 
 
-            setParameters(body)
         }
         fetchParameters()
 
