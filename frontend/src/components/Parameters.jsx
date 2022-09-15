@@ -17,7 +17,6 @@ const Parameters = () => {
     const [limitTemperatura,setLimitTemperatura] = useState(null);
     const [limitCOVT,setLimitCOVT] = useState(null);
     const [limitUmidade,setLimitUmidade] = useState(null);
-    const [parameters, setParameters] = useState({})
 
     useEffect(()=>{
         async function fetchParameters(){
@@ -30,7 +29,7 @@ const Parameters = () => {
                 }
             })
             const [body] = await response.json()
-            setLimitCO2(body.limitCO2)
+            setLimitCO2(body.limitCo2)
             setLimitRuido(body.limitRuidoSonoro)
             setLimitLuminosidade(body.limitLuminosidade)
             setLimitTemperatura(body.limitTemperatura)                
@@ -45,9 +44,22 @@ const Parameters = () => {
     },[])
 
     async function Save(){
-        const body{
-            
-        }
+      const body = {
+        limitCo2: limitCO2,
+        limitRuidoSonoro: limitRuido,
+        limitLuminosidade: limitLuminosidade,
+        limitTemperatura:  limitTemperatura,
+        limitCOVT: limitCOVT,
+        limitUmidade: limitUmidade
+      }
+      const response = await fetch(`${server}/parameter`, {
+        method: "POST",             
+        headers:{
+            accept : "application/json",
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(body)            
+        })        
     }
 
     return(
@@ -132,7 +144,7 @@ const Parameters = () => {
                                 <label style={{textAlign:'left'}}>Umidade: </label>
                                 <input placeholder="Umidade" onChange={(e)=>setLimitUmidade(e.target.value)} value={limitUmidade !== null? limitCOVT:''}  style={{ width:'50%',margin:5}}></input>
                             </span>
-                            <button style={{marginTop: 30}}>save</button>
+                            <button onClick={()=>Save()} style={{marginTop: 30}}>save</button>
                         </div>
                 </Grid>
             </Grid>
