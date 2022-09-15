@@ -50,7 +50,7 @@ const Login =() => {
                             justifyContent: 'center',
                             padding: '80px',
                             borderRadius: '15px' }}>
-                <div style={{ width: '50%', height: '50%' }}>
+                <div style={{ width: '60%', height: '60%' }}>
                     <img src={logo}></img>
                 </div>
                 <div  className="hero-body">
@@ -62,13 +62,13 @@ const Login =() => {
                                     <div className="field mt-5" style={{width: '400px'}}>
                                         <label className="label">Email</label>
                                         <div className="controls">
-                                            <input type="text" className="input" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                            <input maxLength={30} type="text" className="input" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="field mt-5" style={{width: '400px'}}>
                                         <label className="label">Password</label>
                                         <div className="controls">
-                                            <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                            <input maxLength={20} type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
                                         </div>
                                         <div style={{ display: 'flex', justifyContent:'center'}}>
                                         <div className="field mt-5" style={{ justifyContent: 'space-between', width:'200px',  padding: '5px', display:'flex'}}>
